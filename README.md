@@ -4,7 +4,7 @@ Version: 1.0.0
 
 ## Description
 
-Track, color-code, and annotate Amazon product listings across different categories while shooping.
+Track, color-code, and annotate Amazon product listings across different categories while shopping.
 
 ## How to run it
 
