@@ -17,7 +17,7 @@ To run the program do the following steps:
 5. Select the extracted folder
 6. The extension should now be installed and active!
 
-## ------------DEVELOPERS ONLY BELOW ------------##
+## ------------DEVELOPERS ONLY BELOW ------------
 
 ## Development Setup (How to Change Code)
 
