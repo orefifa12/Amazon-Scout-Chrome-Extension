@@ -53,6 +53,7 @@ Documentation that may help:
 
 - [Chrome Extension Documentation](https://developer.chrome.com/docs/extensions/)
 - [React Documentation](https://react.dev/)
-- [Email Me For Feedback](DavidBoham.O@gmail.com)
+
+Email Me For Feedback: DavidBoham.O@gmail.com
 
 ---
