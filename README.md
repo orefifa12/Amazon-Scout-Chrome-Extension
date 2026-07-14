@@ -17,7 +17,7 @@ To run the program do the following steps:
 5. Select the extracted folder
 6. The extension should now be installed and active!
 
-## ------------DEVELOPERS ONLY BELOW ------------##
+## ------------DEVELOPERS ONLY BELOW ------------
 
 ## Development Setup (How to Change Code)
 
@@ -53,6 +53,7 @@ Documentation that may help:
 
 - [Chrome Extension Documentation](https://developer.chrome.com/docs/extensions/)
 - [React Documentation](https://react.dev/)
-- [Email Me For Feedback](DavidBoham.O@gmail.com)
+
+Email Me For Feedback: DavidBoham.O@gmail.com
 
 ---
