@@ -1,0 +1,1 @@
+"use strict";(()=>{console.log("[Amazon Scout] Background service worker started");chrome.runtime.onInstalled.addListener(o=>{console.log("[Amazon Scout] Installed:",o.reason),o.reason==="install"&&chrome.storage.local.set({sessions:[],activeSessionId:null,listings:{}})});})();
