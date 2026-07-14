@@ -35,26 +35,6 @@ const injectStyles = () => {
       100% { transform: scale(1); opacity: 1; }
     }
 
-    .amazon-scout-badge {
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-weight: bold;
-      font-size: 11px;
-      color: white;
-      z-index: 99;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.25);
-      font-family: system-ui, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      animation: scoutFadeIn 0.3s ease-out;
-    }
-    .amazon-scout-badge.status-green { background-color: #10b981 !important; }
-    .amazon-scout-badge.status-red { background-color: #ef4444 !important; }
-    .amazon-scout-badge.status-gray { background-color: #6b7280 !important; }
-    
     /* Docked side tab: fixed to the right edge, follows scroll, collapsible */
     #amazon-scout-panel-container {
       position: fixed;
@@ -320,43 +300,6 @@ const injectStyles = () => {
     }
   `;
   document.head.appendChild(style);
-};
-
-const getListingStatus = (asin: string): ListingStatus => {
-  if (!activeSessionId) return null;
-  const listing = listings[asin];
-  if (listing && listing.sessionId === activeSessionId) {
-    return listing.status;
-  }
-  return null;
-};
-
-// Update or remove badge on a search result card
-const updateBadge = (el: Element, asin: string) => {
-  const status = getListingStatus(asin);
-  let badge = el.querySelector('.amazon-scout-badge');
-  
-  if (!status) {
-    if (badge) badge.remove();
-    return;
-  }
-
-  if (!badge) {
-    badge = document.createElement('div');
-    badge.className = 'amazon-scout-badge';
-    const imgContainer = el.querySelector('.s-image')?.closest('div') || el;
-    if (imgContainer) {
-      (imgContainer as HTMLElement).style.position = 'relative';
-      imgContainer.appendChild(badge);
-    }
-  }
-
-  // Only touch the DOM when something actually changed, to avoid needless
-  // layout reflows when the same cards are rescanned repeatedly.
-  const nextClass = `amazon-scout-badge status-${status}`;
-  const nextText = status === 'green' ? 'Considering' : status === 'red' ? 'Skip' : 'Undecided';
-  if (badge.className !== nextClass) badge.className = nextClass;
-  if (badge.textContent !== nextText) badge.textContent = nextText;
 };
 
 // Show temporary saved toast message inside the panel container
@@ -776,21 +719,12 @@ const renderPanel = (container: HTMLElement, asin: string) => {
   container.appendChild(panel);
 };
 
-// Process DOM Elements for search results and product pages
+// Process DOM Elements for the product page (search-result badges disabled)
 const processDOM = () => {
-  // 1. Check Search Cards
-  const searchCards = document.querySelectorAll('[data-asin]:not([data-asin=""])');
-  searchCards.forEach(card => {
-    const asin = card.getAttribute('data-asin');
-    if (!asin) return;
-    
-    if (!card.hasAttribute('data-plugthis-processed')) {
-      card.setAttribute('data-plugthis-processed', 'true');
-    }
-    updateBadge(card, asin);
-  });
+  // Clean up any leftover search-result badges from earlier versions.
+  document.querySelectorAll('.amazon-scout-badge').forEach(b => b.remove());
 
-  // 2. Check Product Page
+  // Inject the product-page workspace panel when on a product page.
   if (document.getElementById('ASIN') && (document.getElementById('productTitle') || document.getElementById('title'))) {
     injectProductPanel();
   }
